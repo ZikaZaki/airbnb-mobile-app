@@ -21,14 +21,14 @@ enum Strategy {
 
 const Page = () => {
   useWarmUpBrowser();
-
   const router = useRouter();
-  const { startOAuthFlow: appleAuth } = useOAuth({ strategy: Strategy.Apple });
+
+  const { startOAuthFlow: appleAuth } = useOAuth({ strategy: "oauth_apple" });
   const { startOAuthFlow: googleAuth } = useOAuth({
-    strategy: Strategy.Google,
+    strategy: "oauth_google",
   });
   const { startOAuthFlow: facebookAuth } = useOAuth({
-    strategy: Strategy.Facebook,
+    strategy: "oauth_facebook",
   });
 
   const onSelectAuth = async (strategy: Strategy) => {
