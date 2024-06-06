@@ -23,6 +23,7 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
 
   useEffect(() => {
     loadInitialItems();
+    console.log("items: ", data.length);
   }, [category]);
 
   const loadInitialItems = useCallback(() => {
@@ -43,7 +44,9 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
 
   // const renderItem = ({ item }: { item: any }) => <ListingItem item={item} />;
   const renderRow: ListRenderItem<any> = ({ item }) => (
-    <Link href={`/listing/${item.id}`}>Go there</Link>
+    <Link href={`/listing/${item.id}`} key={item.id}>
+      Go there
+    </Link>
   );
 
   const renderFooter = () => {
@@ -76,7 +79,7 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
         onEndReachedThreshold={0.5}
         ListFooterComponent={renderFooter}
         windowSize={3}
-        style={{ flex: 1 }}
+        style={{ flex: 1, margin: 10 }}
       />
       <Text>Listings</Text>
       <TouchableOpacity

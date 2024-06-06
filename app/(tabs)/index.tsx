@@ -6,8 +6,11 @@ import Listings from "@/components/Listings";
 import listingData from "@/assets/data/barcelona-listings.json";
 
 const Page = () => {
-  const [category, setCategory] = useState("Tiny homes");
-  const items = useMemo(() => listingData as any, []);
+  const [category, setCategory] = useState("Entire home/apt");
+  // const items = useMemo(() => listingData as any, []);
+  const items = useMemo(() => {
+    return (listingData as any[]).filter((item) => item.room_type === category);
+  }, [category]);
 
   const onDataChanged = (category: string) => {
     // console.log("CHANGED_ ", category);
@@ -15,16 +18,13 @@ const Page = () => {
   };
 
   return (
-    <View style={{ flex: 1, marginTop: 142 }}>
+    <View style={{ flex: 1 }}>
       <Stack.Screen
         options={{
           header: () => <ExploreHeader onCategoryChanged={onDataChanged} />,
         }}
       />
-      <Listings
-        items={items.filter((item: any) => item.category === category)}
-        category={category}
-      />
+      <Listings items={items} category={category} />
     </View>
   );
 };

@@ -10,7 +10,7 @@ import * as Haptics from "expo-haptics";
 
 const categories = [
   {
-    name: "Tiny homes",
+    name: "Entire home/apt",
     icon: "home",
   },
   {
