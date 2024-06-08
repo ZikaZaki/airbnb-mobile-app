@@ -1,4 +1,4 @@
-export interface Listing {
+export interface AirbnbListing {
   id: number;
   listing_url: string;
   scrape_id: number;
