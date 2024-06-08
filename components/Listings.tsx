@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { defaultStyles } from "@/constants/Styles";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 
 interface ListingsProps {
@@ -99,5 +99,11 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  listing: {
+    padding: 1,
+  },
+});
 
 export default Listings;
