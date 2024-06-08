@@ -4,11 +4,13 @@ import {
   ListRenderItem,
   ActivityIndicator,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { defaultStyles } from "@/constants/Styles";
 import { FlatList, StyleSheet } from "react-native";
 import { Link } from "expo-router";
+import { AirbnbListing } from "@/app/interfaces/airbnb_listing";
 
 interface ListingsProps {
   items: any[];
@@ -17,7 +19,7 @@ interface ListingsProps {
 
 const Listings: React.FC<ListingsProps> = ({ items, category }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<AirbnbListing[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const listRef = useRef<FlatList<any>>(null);
 
@@ -43,9 +45,13 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
   }, [isLoading, currentPage, items]);
 
   // const renderItem = ({ item }: { item: any }) => <ListingItem item={item} />;
-  const renderRow: ListRenderItem<any> = ({ item }) => (
+  const renderRow: ListRenderItem<AirbnbListing> = ({ item }) => (
     <Link href={`/listing/${item.id}`} key={item.id}>
-      Go there
+      <TouchableOpacity>
+        <View style={styles.listing}>
+          <Image source={{ uri: item.medium_url }} />
+        </View>
+      </TouchableOpacity>
     </Link>
   );
 
@@ -105,5 +111,6 @@ const styles = StyleSheet.create({
     padding: 1,
   },
 });
+
 
 export default Listings;
