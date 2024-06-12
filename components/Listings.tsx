@@ -81,11 +81,11 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderRow}
         initialNumToRender={10}
-        maxToRenderPerBatch={20}
+        maxToRenderPerBatch={30}
         onEndReached={loadMoreData}
         onEndReachedThreshold={0.5}
         ListFooterComponent={renderFooter}
-        windowSize={3}
+        windowSize={5}
         style={{ flex: 1, margin: 10 }}
       />
       <TouchableOpacity onPress={scrollToTop} style={styles.scrollTopBtn}>
@@ -98,7 +98,8 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
 
 const styles = StyleSheet.create({
   listing: {
-    padding: 1,
+    padding: 8,
+    marginVertical: 2,
   },
   image: {
     width: "100%",
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
     backgroundColor: "blue",
     paddingVertical: 12,
     paddingHorizontal: 16,
-    borderRadius: 8,
+    borderRadius: 16,
   },
 });
 

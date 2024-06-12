@@ -10,7 +10,7 @@ import * as Haptics from "expo-haptics";
 
 const categories = [
   {
-    name: "Entire home/apt",
+    name: "Home/Apt",
     icon: "home",
   },
   {
@@ -66,7 +66,7 @@ const ExploreHeader = ({ onCategoryChanged }: Props) => {
         <View style={styles.actionRow}>
           <Link href={"/(modals)/booking"} asChild>
             <TouchableOpacity style={styles.searchBtn}>
-              <Ionicons name="search" size={26} />
+              <Ionicons name="search" size={24} />
               <View>
                 <Text style={{ fontFamily: "mon-sb" }}>Where to?</Text>
                 <Text style={{ fontFamily: "mon", color: Colors.grey }}>
@@ -89,6 +89,7 @@ const ExploreHeader = ({ onCategoryChanged }: Props) => {
             alignItems: "center",
             gap: 16,
             paddingHorizontal: 18,
+            paddingVertical: 4,
           }}
         >
           {categories.map((cat, index) => (
@@ -127,18 +128,18 @@ const ExploreHeader = ({ onCategoryChanged }: Props) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    height: 130,
+    height: 132,
   },
   actionRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 24,
-    paddingBottom: 16,
+    paddingHorizontal: 18,
+    paddingVertical: 12,
     gap: 10,
   },
   filterBtn: {
-    padding: 10,
+    padding: 6,
     borderWidth: 1,
     borderColor: Colors.grey,
     borderRadius: 24,
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
     borderColor: "#c2c2c2",
     borderWidth: StyleSheet.hairlineWidth,
     flex: 1,
-    padding: 14,
+    padding: 10,
     borderRadius: 30,
     backgroundColor: "#fff",
 
