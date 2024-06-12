@@ -4,12 +4,15 @@ import { Stack } from "expo-router";
 import ExploreHeader from "@/components/ExploreHeader";
 import Listings from "@/components/Listings";
 import listingData from "@/assets/data/barcelona-listings.json";
+import { AirbnbList } from "../interfaces/airbnb_list";
 
 const Page = () => {
   const [category, setCategory] = useState("Entire home/apt");
   // const items = useMemo(() => listingData as any, []);
   const items = useMemo(() => {
-    return (listingData as any[]).filter((item) => item.room_type === category);
+    return (listingData as AirbnbList[]).filter(
+      (item) => item.room_type === category
+    );
   }, [category]);
 
   const onDataChanged = (category: string) => {

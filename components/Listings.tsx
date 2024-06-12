@@ -10,18 +10,19 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { defaultStyles } from "@/constants/Styles";
 import { FlatList, StyleSheet } from "react-native";
 import { Link } from "expo-router";
-import { AirbnbListing } from "@/app/interfaces/airbnb_listing";
+import { AirbnbList } from "@/app/interfaces/airbnb_list";
+import { Ionicons } from "@expo/vector-icons";
 
 interface ListingsProps {
-  items: any[];
+  items: AirbnbList[];
   category: string;
 }
 
 const Listings: React.FC<ListingsProps> = ({ items, category }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<AirbnbListing[]>([]);
+  const [data, setData] = useState<AirbnbList[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const listRef = useRef<FlatList<any>>(null);
+  const listRef = useRef<FlatList<AirbnbList>>(null);
 
   useEffect(() => {
     loadInitialItems();
@@ -45,11 +46,11 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
   }, [isLoading, currentPage, items]);
 
   // const renderItem = ({ item }: { item: any }) => <ListingItem item={item} />;
-  const renderRow: ListRenderItem<AirbnbListing> = ({ item }) => (
-    <Link href={`/listing/${item.id}`} key={item.id}>
+  const renderRow: ListRenderItem<AirbnbList> = ({ item }) => (
+    <Link href={`/listing/${item.id}`} key={item.id} asChild>
       <TouchableOpacity>
         <View style={styles.listing}>
-          <Image source={{ uri: item.medium_url }} />
+          <Image source={{ uri: item.picture_url }} style={styles.image} />
         </View>
       </TouchableOpacity>
     </Link>
@@ -87,20 +88,9 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
         windowSize={3}
         style={{ flex: 1, margin: 10 }}
       />
-      <Text>Listings</Text>
-      <TouchableOpacity
-        onPress={scrollToTop}
-        style={{
-          position: "absolute",
-          bottom: 20,
-          right: 20,
-          backgroundColor: "blue",
-          paddingVertical: 12,
-          paddingHorizontal: 16,
-          borderRadius: 8,
-        }}
-      >
-        <Text style={{ color: "white" }}>Scroll to Top</Text>
+      <TouchableOpacity onPress={scrollToTop} style={styles.scrollTopBtn}>
+        {/* <Text style={{ color: "white" }}>Scroll to Top</Text> */}
+        <Ionicons name="arrow-up" style={{ color: "white" }} size={24} />
       </TouchableOpacity>
     </View>
   );
@@ -109,6 +99,20 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
 const styles = StyleSheet.create({
   listing: {
     padding: 1,
+  },
+  image: {
+    width: "100%",
+    height: 300,
+    borderRadius: 12,
+  },
+  scrollTopBtn: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "blue",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
   },
 });
 
