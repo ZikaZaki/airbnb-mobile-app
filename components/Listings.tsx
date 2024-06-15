@@ -5,6 +5,8 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { defaultStyles } from "@/constants/Styles";
@@ -23,6 +25,7 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
   const [data, setData] = useState<AirbnbList[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const listRef = useRef<FlatList<AirbnbList>>(null);
+  const [showButtonToTop, setShowButtonToTop] = useState(false);
 
   useEffect(() => {
     loadInitialItems();
@@ -73,6 +76,15 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
     }
   };
 
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const currentOffset = event.nativeEvent.contentOffset.y;
+    const maxOffset =
+      event.nativeEvent.contentSize.height -
+      event.nativeEvent.layoutMeasurement.height;
+
+    setShowButtonToTop(currentOffset > 100);
+  };
+
   return (
     <View style={defaultStyles.container}>
       <FlatList
@@ -86,12 +98,14 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
         onEndReachedThreshold={0.5}
         ListFooterComponent={renderFooter}
         windowSize={5}
+        onScroll={handleScroll}
         style={{ flex: 1, margin: 10 }}
       />
-      <TouchableOpacity onPress={scrollToTop} style={styles.scrollTopBtn}>
-        {/* <Text style={{ color: "white" }}>Scroll to Top</Text> */}
-        <Ionicons name="arrow-up" style={{ color: "white" }} size={24} />
-      </TouchableOpacity>
+      {showButtonToTop && (
+        <TouchableOpacity onPress={scrollToTop} style={styles.scrollTopBtn}>
+          <Ionicons name="arrow-up" style={{ color: "white" }} size={24} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -108,11 +122,11 @@ const styles = StyleSheet.create({
   },
   scrollTopBtn: {
     position: "absolute",
-    bottom: 20,
-    right: 20,
+    bottom: 18,
+    right: 18,
     backgroundColor: "blue",
     paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     borderRadius: 16,
   },
 });
