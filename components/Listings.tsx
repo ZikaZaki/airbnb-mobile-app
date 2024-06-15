@@ -50,7 +50,7 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
 
   // const renderItem = ({ item }: { item: any }) => <ListingItem item={item} />;
   const renderRow: ListRenderItem<AirbnbList> = ({ item }) => (
-    <Link href={`/listing/${item.id}`} key={item.id} asChild>
+    <Link href={`/listing/${item.id}`} key={item.id + item.host_id} asChild>
       <TouchableOpacity>
         <View style={styles.listing}>
           <Image source={{ uri: item.picture_url }} style={styles.image} />
@@ -82,7 +82,7 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
       event.nativeEvent.contentSize.height -
       event.nativeEvent.layoutMeasurement.height;
 
-    setShowButtonToTop(currentOffset > 100);
+    setShowButtonToTop(currentOffset > 900);
   };
 
   return (
@@ -124,10 +124,18 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 18,
     right: 18,
-    backgroundColor: "blue",
+    backgroundColor: "#FF5A5F",
     paddingVertical: 12,
     paddingHorizontal: 12,
-    borderRadius: 16,
+    borderRadius: 26,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 6,
   },
 });
 
