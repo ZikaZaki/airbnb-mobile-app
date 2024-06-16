@@ -30,7 +30,21 @@ const Page = () => {
           <Text style={styles.location}>
             {item?.room_type} in {item?.host_location}
           </Text>
-          <Text style={styles.rooms}>{item?.accommodates} accommodates. {item?.bedrooms} bedrooms. {item?.beds} beds. {item?.bathrooms} bathrooms</Text>
+          <View style={styles.rooms}>
+            <Text style={styles.roomsText}>{item?.bedrooms} bedrooms</Text>
+            <Text
+              style={{ fontSize: 16, fontFamily: "mon", color: "lightgrey" }}
+            >
+              |
+            </Text>
+            <Text style={styles.roomsText}>{item?.beds} beds</Text>
+            <Text
+              style={{ fontSize: 16, fontFamily: "mon", color: "lightgrey" }}
+            >
+              |
+            </Text>
+            <Text style={styles.roomsText}>{item?.bathrooms} bathrooms</Text>
+          </View>
           <View style={{ flexDirection: "row", gap: 4 }}>
             <Ionicons name="star" size={16} />
             <Text style={styles.ratings}>
@@ -86,6 +100,12 @@ const styles = StyleSheet.create({
     fontFamily: "mon-sb",
   },
   rooms: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 18,
+  },
+  roomsText: {
     fontSize: 16,
     color: Colors.grey,
     fontFamily: "mon",
