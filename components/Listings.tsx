@@ -14,6 +14,11 @@ import { FlatList, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import { AirbnbList } from "@/app/interfaces/airbnb_list";
 import { Ionicons } from "@expo/vector-icons";
+import Animated, {
+  FadeIn,
+  FadeInRight,
+  FadeOutLeft,
+} from "react-native-reanimated";
 import Colors from "@/constants/Colors";
 
 interface ListingsProps {
@@ -31,6 +36,9 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
   useEffect(() => {
     loadInitialItems();
     console.log("items: ", data.length);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
   }, [category]);
 
   const loadInitialItems = useCallback(() => {
@@ -46,11 +54,14 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
     const startIndex = (currentPage - 1) * 20;
     const endIndex = startIndex + 20;
     setData((prevData) => [...prevData, ...items.slice(startIndex, endIndex)]);
-    setIsLoading(false);
   }, [isLoading, currentPage, items]);
 
   const renderRow: ListRenderItem<AirbnbList> = ({ item }) => (
-    <View style={styles.listing}>
+    <Animated.View
+      style={styles.listing}
+      entering={FadeInRight}
+      exiting={FadeOutLeft}
+    >
       <Link href={`/listing/${item.id}`} key={item.id + item.host_id} asChild>
         <TouchableOpacity>
           <Image source={{ uri: item.picture_url }} style={styles.image} />
@@ -115,7 +126,7 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
           </View>
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 
   const renderFooter = () => {
@@ -151,8 +162,8 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
         data={data}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderRow}
-        initialNumToRender={10}
-        maxToRenderPerBatch={30}
+        initialNumToRender={5}
+        maxToRenderPerBatch={15}
         onEndReached={loadMoreData}
         onEndReachedThreshold={0.5}
         ListFooterComponent={renderFooter}
@@ -262,10 +273,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     gap: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+    padding: 16,
     backgroundColor: "#EAEAEA",
-    height: 80,
+    height: 90,
     borderBottomStartRadius: 18,
     borderBottomEndRadius: 18,
     borderTopEndRadius: 18,
