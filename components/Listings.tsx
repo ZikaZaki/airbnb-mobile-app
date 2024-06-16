@@ -80,10 +80,10 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
       <FlatList
         ref={listRef}
         data={data}
-        keyExtractor={(item) => item.id.toString()}
         renderItem={RenderRow}
-        initialNumToRender={3}
-        maxToRenderPerBatch={6}
+        keyExtractor={(item) => item.id.toString()}
+        initialNumToRender={5}
+        maxToRenderPerBatch={15}
         onEndReached={loadMoreData}
         onEndReachedThreshold={0.5}
         ListFooterComponent={renderFooter}

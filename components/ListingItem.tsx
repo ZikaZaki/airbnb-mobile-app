@@ -20,6 +20,8 @@ interface ListingItemProps {
 const ListingItem: React.FC<ListingItemProps> = ({ item }) => {
   const [imageLoading, setImageLoading] = useState(true);
 
+  console.log("Rendered Item: ", item.id);
+
   return (
     <Animated.View
       style={styles.listing}
@@ -122,6 +124,16 @@ const ListingItem: React.FC<ListingItemProps> = ({ item }) => {
     </Animated.View>
   );
 };
+
+// Optional custom comparison function
+const areEqual = (prevProps: ListingItemProps, nextProps: ListingItemProps) => {
+  return (
+    prevProps.item.id === nextProps.item.id &&
+    prevProps.item.host_id === nextProps.item.host_id
+  );
+};
+
+export default React.memo(ListingItem, areEqual);
 
 const styles = StyleSheet.create({
   listing: {
@@ -239,5 +251,3 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 18,
   },
 });
-
-export default ListingItem;
