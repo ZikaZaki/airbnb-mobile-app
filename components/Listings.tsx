@@ -14,11 +14,7 @@ import { FlatList, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import { AirbnbList } from "@/app/interfaces/airbnb_list";
 import { Ionicons } from "@expo/vector-icons";
-import Animated, {
-  FadeIn,
-  FadeInRight,
-  FadeOutLeft,
-} from "react-native-reanimated";
+import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
 import Colors from "@/constants/Colors";
 
 interface ListingsProps {
