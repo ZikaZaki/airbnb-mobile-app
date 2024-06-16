@@ -8,7 +8,6 @@ import { AirbnbList } from "../interfaces/airbnb_list";
 
 const Page = () => {
   const [category, setCategory] = useState("Home/Apt");
-  // const items = useMemo(() => listingData as any, []);
   const items = useMemo(() => {
     return (listingData as AirbnbList[]).filter(
       (item) => item.room_type === category
@@ -16,7 +15,6 @@ const Page = () => {
   }, [category]);
 
   const onDataChanged = (category: string) => {
-    // console.log("CHANGED_ ", category);
     setCategory(category);
   };
 

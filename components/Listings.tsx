@@ -14,6 +14,7 @@ import { FlatList, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import { AirbnbList } from "@/app/interfaces/airbnb_list";
 import { Ionicons } from "@expo/vector-icons";
+import Colors from "@/constants/Colors";
 
 interface ListingsProps {
   items: AirbnbList[];
@@ -48,15 +49,73 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
     setIsLoading(false);
   }, [isLoading, currentPage, items]);
 
-  // const renderItem = ({ item }: { item: any }) => <ListingItem item={item} />;
   const renderRow: ListRenderItem<AirbnbList> = ({ item }) => (
-    <Link href={`/listing/${item.id}`} key={item.id + item.host_id} asChild>
-      <TouchableOpacity>
-        <View style={styles.listing}>
+    <View style={styles.listing}>
+      <Link href={`/listing/${item.id}`} key={item.id + item.host_id} asChild>
+        <TouchableOpacity>
           <Image source={{ uri: item.picture_url }} style={styles.image} />
+          <TouchableOpacity style={styles.likeBtn}>
+            <Ionicons name="heart-outline" size={24} color="#000" />
+          </TouchableOpacity>
+          <View style={styles.imageAfter} />
+        </TouchableOpacity>
+      </Link>
+
+      <View style={styles.priceContainer}>
+        <View style={styles.priceBefore} />
+        <View style={styles.price}>
+          <Text style={{ fontFamily: "mon-b", color: "white" }}>
+            Price: {item.price ? item.price : "N/A"} night
+          </Text>
         </View>
-      </TouchableOpacity>
-    </Link>
+        <View style={styles.priceAfter}>
+          <View
+            style={{
+              height: 12.5,
+              width: 12.5,
+              backgroundColor: "#FF5A5F",
+              borderRadius: 6.25,
+            }}
+          />
+        </View>
+      </View>
+
+      <View style={styles.details}>
+        <Text
+          style={{
+            fontSize: 14,
+            fontFamily: "mon-sb",
+            width: "100%",
+          }}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {item.name}
+        </Text>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            gap: 4,
+          }}
+        >
+          <Text style={{ fontFamily: "mon-sb", color: Colors.grey }}>
+            Accommodates: {item.accommodates}
+          </Text>
+
+          <View style={{ flexDirection: "row", gap: 2 }}>
+            <Text style={{ fontFamily: "mon-sb", color: Colors.grey }}>
+              Rating:{" "}
+            </Text>
+            <Ionicons name="star" size={16} />
+            <Text style={{ fontFamily: "mon-sb" }}>
+              {item.review_scores_value}
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
   );
 
   const renderFooter = () => {
@@ -99,7 +158,7 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
         ListFooterComponent={renderFooter}
         windowSize={5}
         onScroll={handleScroll}
-        style={{ flex: 1, margin: 10 }}
+        style={{ flex: 1, margin: 10, paddingHorizontal: 6 }}
       />
       {showButtonToTop && (
         <TouchableOpacity onPress={scrollToTop} style={styles.scrollTopBtn}>
@@ -112,13 +171,104 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
 
 const styles = StyleSheet.create({
   listing: {
-    padding: 8,
-    marginVertical: 2,
+    flexDirection: "column",
+    gap: 6,
+    height: 386,
+    marginVertical: 12,
+    borderRadius: 18,
   },
   image: {
     width: "100%",
     height: 300,
-    borderRadius: 12,
+    borderRadius: 18,
+    overflow: "hidden",
+  },
+  imageAfter: {
+    position: "absolute",
+    left: -4,
+    bottom: 50,
+    width: 28,
+    height: 28,
+    borderLeftWidth: 5,
+    borderBottomWidth: 5,
+    borderBottomStartRadius: 18,
+    borderColor: "white",
+  },
+  likeBtn: {
+    position: "absolute",
+    right: 30,
+    top: 30,
+  },
+  priceContainer: {
+    flex: 1,
+    flexDirection: "column",
+    position: "absolute",
+    backgroundColor: "#EAEAEA",
+    height: 60,
+    width: "50%",
+    padding: 8,
+    top: -164,
+    borderTopWidth: 6,
+    borderRightWidth: 6,
+    borderColor: "white",
+    borderTopRightRadius: 18,
+  },
+  priceBefore: {
+    position: "absolute",
+    borderTopStartRadius: 50,
+    width: 25,
+    height: 25,
+    backgroundColor: "#EAEAEA",
+    shadowColor: "white",
+    shadowOffset: {
+      width: -15,
+      height: -5,
+    },
+    shadowOpacity: 1, // This makes the shadow visible
+    shadowRadius: 0, // This makes the shadow sharp, not blurred
+  },
+  price: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    backgroundColor: "#FF5A5F",
+    // backgroundColor: "#FF9194",
+    padding: 2,
+    height: "100%",
+    width: "100%",
+    borderRadius: 8,
+  },
+  priceAfter: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: 0,
+    right: -25,
+    borderRadius: 50,
+    width: 25,
+    height: 25,
+    backgroundColor: "white",
+    shadowColor: "#EAEAEA",
+    shadowOffset: {
+      width: -10,
+      height: 10,
+    },
+    shadowOpacity: 1, // This makes the shadow visible
+    shadowRadius: 0, // This makes the shadow sharp, not blurred
+  },
+  details: {
+    flexDirection: "column",
+    justifyContent: "space-between",
+    gap: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    backgroundColor: "#EAEAEA",
+    height: 80,
+    borderBottomStartRadius: 18,
+    borderBottomEndRadius: 18,
+    borderTopEndRadius: 18,
   },
   scrollTopBtn: {
     position: "absolute",
