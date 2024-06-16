@@ -72,7 +72,7 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
         <View style={styles.priceBefore} />
         <View style={styles.price}>
           <Text style={{ fontFamily: "mon-b", color: "white" }}>
-            Price: {item.price ? item.price : "N/A"} night
+            Price: {item.price ? item.price + "night" : "  N/A"}
           </Text>
         </View>
         <View style={styles.priceAfter}>

@@ -15,8 +15,6 @@ const Page = () => {
   const item = (listingData as AirbnbList[]).find(
     (item) => item.id.toString() === id
   );
-  // put a log statement for id
-  console.log(" ~ file: [id].tsx:7 ~ Page ~ id:", id);
   return (
     <View style={styles.container}>
       <Animated.ScrollView>
