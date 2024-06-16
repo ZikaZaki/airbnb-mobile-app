@@ -66,6 +66,7 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
               {imageLoading && (
                 <View
                   style={{
+                    ...StyleSheet.absoluteFillObject,
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
@@ -94,14 +95,17 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
                     setImageLoading(false);
                   }, 2000)
                 }
-                onError={() => setImageLoading(false)}
+                onError={() =>
+                  setTimeout(() => {
+                    setImageLoading(false);
+                  }, 2000)
+                }
               />
+              <TouchableOpacity style={styles.likeBtn}>
+                <Ionicons name="heart-outline" size={24} color="#FF5A5F" />
+              </TouchableOpacity>
+              <View style={styles.imageAfter} />
             </View>
-
-            <TouchableOpacity style={styles.likeBtn}>
-              <Ionicons name="heart-outline" size={24} color="#FF5A5F" />
-            </TouchableOpacity>
-            <View style={styles.imageAfter} />
           </TouchableOpacity>
         </Link>
 
@@ -132,7 +136,6 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
               width: "100%",
             }}
             numberOfLines={1}
-            ellipsizeMode="tail"
           >
             {item.name}
           </Text>
@@ -220,10 +223,10 @@ const styles = StyleSheet.create({
     borderRadius: 18,
   },
   imageContainer: {
+    position: "relative",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    position: "relative",
     width: "100%",
     height: 300,
     borderRadius: 18,
@@ -261,7 +264,9 @@ const styles = StyleSheet.create({
     height: 60,
     width: "50%",
     padding: 8,
-    top: -164,
+    left: 0,
+    bottom: 80,
+    zIndex: 10,
     borderTopWidth: 6,
     borderRightWidth: 6,
     borderColor: "white",
