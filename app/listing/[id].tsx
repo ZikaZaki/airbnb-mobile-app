@@ -306,8 +306,8 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#fff",
-    height: 100,
-    borderBottomColor: Colors.grey,
+    height: "100%",
+    borderBottomColor: Colors.dark,
     borderWidth: StyleSheet.hairlineWidth,
   },
 });
