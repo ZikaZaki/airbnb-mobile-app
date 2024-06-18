@@ -112,7 +112,7 @@ const Page = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 gap: 10,
-                backgroundColor: "lightgrey",
+                backgroundColor: "#EAEAEA",
               }}
             >
               <ActivityIndicator size="large" color="#FF5A5F" />

@@ -250,8 +250,8 @@ const styles = StyleSheet.create({
   details: {
     flexDirection: "column",
     justifyContent: "space-between",
-    gap: 5,
-    padding: 16,
+    gap: 6,
+    padding: 18,
     backgroundColor: "#EAEAEA",
     height: 90,
     borderBottomStartRadius: 18,
