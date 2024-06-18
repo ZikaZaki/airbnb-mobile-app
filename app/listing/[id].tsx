@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,10 +7,8 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
+  Share,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import { AirbnbList } from "@/app/interfaces/airbnb_list";
-import listingData from "@/assets/data/barcelona-listings.json";
 import Animated, {
   interpolate,
   SlideInDown,
@@ -18,7 +16,10 @@ import Animated, {
   useAnimatedStyle,
   useScrollViewOffset,
 } from "react-native-reanimated";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { AirbnbList } from "@/app/interfaces/airbnb_list";
+import listingData from "@/assets/data/barcelona-listings.json";
 import Colors from "@/constants/Colors";
 import { defaultStyles } from "@/constants/Styles";
 
@@ -28,11 +29,45 @@ const { width } = Dimensions.get("window");
 const Page = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const item = (listingData as AirbnbList[]).find(
-    (item) => item.id.toString() === id
+    (item) => item.id.toString() === (id ?? "")
   );
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
+  const navigation = useNavigation();
   const [imageLoading, setImageLoading] = useState(true);
+  const shareListing = async () => {
+    try {
+      await Share.share({
+        title: item?.name,
+        url: item?.listing_url ?? "",
+      });
+    } catch (err) {
+      console.log("Share Error: ", err);
+    }
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerBackground: () => (
+        <Animated.View style={[headerAnimatedStyle, styles.header]} />
+      ),
+      headerRight: () => (
+        <View style={styles.bar}>
+          <TouchableOpacity style={styles.roundBtn} onPress={shareListing}>
+            <Ionicons name="share-outline" size={22} color={"#000"} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.roundBtn}>
+            <Ionicons name="heart-outline" size={22} color={"#000"} />
+          </TouchableOpacity>
+        </View>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity style={styles.roundBtn} onPress={navigation.goBack}>
+          <Ionicons name="chevron-back" size={24} color={"#000"} />
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
     return {
@@ -55,6 +90,12 @@ const Page = () => {
     };
   });
 
+  const headerAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(scrollOffset.value, [0, IMG_HEIGHT / 4], [0, 1]),
+    };
+  });
+
   return (
     <View style={styles.container}>
       <Animated.ScrollView
@@ -71,7 +112,7 @@ const Page = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 gap: 10,
-                backgroundColor: "grey",
+                backgroundColor: "lightgrey",
               }}
             >
               <ActivityIndicator size="large" color="#FF5A5F" />
@@ -244,5 +285,29 @@ const styles = StyleSheet.create({
   footerPrice: {
     fontSize: 18,
     fontFamily: "mon-sb",
+  },
+  bar: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
+  },
+  roundBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 38,
+    height: 38,
+    marginBottom: 6,
+    borderRadius: 50,
+    backgroundColor: "white",
+    color: Colors.primary,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: Colors.grey,
+  },
+  header: {
+    backgroundColor: "#fff",
+    height: 100,
+    borderBottomColor: Colors.grey,
+    borderWidth: StyleSheet.hairlineWidth,
   },
 });
