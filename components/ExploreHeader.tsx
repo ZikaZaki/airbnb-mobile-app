@@ -125,6 +125,8 @@ const ExploreHeader = ({ onCategoryChanged }: Props) => {
   );
 };
 
+export default ExploreHeader;
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
@@ -191,5 +193,3 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
   },
 });
-
-export default ExploreHeader;

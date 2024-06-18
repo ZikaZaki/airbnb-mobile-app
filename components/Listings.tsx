@@ -101,6 +101,8 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
   );
 };
 
+export default Listings;
+
 const styles = StyleSheet.create({
   scrollTopBtn: {
     position: "absolute",
@@ -120,6 +122,3 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
 });
-
-
-export default Listings;
