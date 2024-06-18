@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Link } from "expo-router";
 import { AirbnbList } from "@/app/interfaces/airbnb_list";
-import { Ionicons } from "@expo/vector-icons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
 import Colors from "@/constants/Colors";
 
@@ -19,8 +19,18 @@ interface ListingItemProps {
 
 const ListingItem: React.FC<ListingItemProps> = ({ item }) => {
   const [imageLoading, setImageLoading] = useState(true);
+  const [liked, setLiked] = useState(false);
 
-  console.log("Rendered Item: ", item.id);
+  useEffect(() => {
+    // Add or remove item from favorites based on the value of 'liked'
+    if (liked) {
+      // Add item to favorites
+    }
+  }, [liked]);
+
+  const handleLike = () => {
+    setLiked(!liked);
+  };
 
   return (
     <Animated.View
@@ -61,8 +71,12 @@ const ListingItem: React.FC<ListingItemProps> = ({ item }) => {
               onLoad={() => setImageLoading(false)}
               onError={() => setImageLoading(false)}
             />
-            <TouchableOpacity style={styles.likeBtn}>
-              <Ionicons name="heart-outline" size={26} color="#FF5A5F" />
+            <TouchableOpacity style={styles.likeBtn} onPress={handleLike}>
+              {liked ? (
+                <Ionicons name="heart" size={26} color={Colors.primary} />
+              ) : (
+                <Ionicons name="heart-outline" size={26} color="white" />
+              )}
             </TouchableOpacity>
             <View style={styles.imageAfter} />
           </View>
@@ -80,7 +94,7 @@ const ListingItem: React.FC<ListingItemProps> = ({ item }) => {
             style={{
               height: 15,
               width: 15,
-              backgroundColor: "#FF5A5F",
+              backgroundColor: Colors.primary,
               borderRadius: 50,
             }}
           />
@@ -181,11 +195,16 @@ const styles = StyleSheet.create({
   },
   likeBtn: {
     position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
     padding: 4,
     borderRadius: 50,
-    color: "white",
+    height: 40,
+    width: 40,
     right: 30,
     top: 30,
+    zIndex: 10,
+    elevation: 10,
   },
   priceContainer: {
     flex: 1,
@@ -222,7 +241,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-    backgroundColor: "#FF5A5F",
+    backgroundColor: Colors.primary,
     padding: 2,
     height: "100%",
     width: "100%",
