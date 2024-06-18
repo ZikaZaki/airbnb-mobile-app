@@ -88,16 +88,31 @@ const ListingItem: React.FC<ListingItemProps> = ({ item }) => {
       </View>
 
       <View style={styles.details}>
-        <Text
+        <View
           style={{
-            fontSize: 14,
-            fontFamily: "mon-sb",
-            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            gap: 10,
           }}
-          numberOfLines={1}
         >
-          {item.name}
-        </Text>
+          <Text
+            style={{
+              fontSize: 14,
+              fontFamily: "mon-sb",
+              width: "80%",
+            }}
+            numberOfLines={1}
+          >
+            {item.name}
+          </Text>
+          <View style={{ flexDirection: "row", gap: 2 }}>
+            <Ionicons name="star" size={16} />
+            <Text style={{ fontFamily: "mon-sb" }}>
+              {item.review_scores_value}
+            </Text>
+          </View>
+        </View>
 
         <View
           style={{
@@ -107,18 +122,11 @@ const ListingItem: React.FC<ListingItemProps> = ({ item }) => {
           }}
         >
           <Text style={{ fontFamily: "mon-sb", color: Colors.grey }}>
+            Type: {item.room_type}
+          </Text>
+          <Text style={{ fontFamily: "mon-sb", color: Colors.grey }}>
             Accommodates: {item.accommodates}
           </Text>
-
-          <View style={{ flexDirection: "row", gap: 2 }}>
-            <Text style={{ fontFamily: "mon-sb", color: Colors.grey }}>
-              Rating:{" "}
-            </Text>
-            <Ionicons name="star" size={16} />
-            <Text style={{ fontFamily: "mon-sb" }}>
-              {item.review_scores_value}
-            </Text>
-          </View>
         </View>
       </View>
     </Animated.View>

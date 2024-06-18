@@ -10,7 +10,7 @@ const Page = () => {
   const [category, setCategory] = useState("Home/Apt");
   const items = useMemo(() => {
     return (listingData as AirbnbList[]).filter(
-      (item) => item.room_type === category
+      (item) => item.property_type === category
     );
   }, [category]);
 
