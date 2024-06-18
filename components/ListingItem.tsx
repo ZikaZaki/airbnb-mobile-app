@@ -135,10 +135,10 @@ const ListingItem: React.FC<ListingItemProps> = ({ item }) => {
             gap: 4,
           }}
         >
-          <Text style={{ fontFamily: "mon-sb", color: Colors.grey }}>
+          <Text style={{ fontFamily: "mon-sb", color: Colors.darkGrey }}>
             Type: {item.room_type}
           </Text>
-          <Text style={{ fontFamily: "mon-sb", color: Colors.grey }}>
+          <Text style={{ fontFamily: "mon-sb", color: Colors.darkGrey }}>
             Accommodates: {item.accommodates}
           </Text>
         </View>
