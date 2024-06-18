@@ -13,6 +13,7 @@ import { defaultStyles } from "@/constants/Styles";
 import { AirbnbList } from "@/app/interfaces/airbnb_list";
 import { Ionicons } from "@expo/vector-icons";
 import ListingItem from "./ListingItem";
+import Colors from "@/constants/Colors";
 
 interface ListingsProps {
   items: AirbnbList[];
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 18,
     right: 18,
-    backgroundColor: "#FF5A5F",
+    backgroundColor: Colors.primary,
     paddingVertical: 12,
     paddingHorizontal: 12,
     borderRadius: 26,
