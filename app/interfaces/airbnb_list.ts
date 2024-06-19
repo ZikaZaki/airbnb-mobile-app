@@ -29,8 +29,8 @@ export interface AirbnbList {
   neighbourhood: string;
   neighbourhood_cleansed: string;
   neighbourhood_group_cleansed: string;
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   property_type: string;
   room_type: string;
   accommodates: number;
