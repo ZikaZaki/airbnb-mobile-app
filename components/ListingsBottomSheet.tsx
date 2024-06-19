@@ -19,11 +19,11 @@ import {
 import { defaultStyles } from "@/constants/Styles";
 import BottomSheet from "@gorhom/bottom-sheet";
 import ListingItem from "./ListingItem";
-
 import { AirbnbList } from "@/app/interfaces/airbnb_list";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import listingData from "@/assets/data/barcelona-listings.json";
+import Animated, { SlideInUp } from "react-native-reanimated";
 
 interface Props {
   category: string;
@@ -31,6 +31,7 @@ interface Props {
 
 const ListingsBottomSheet = ({ category }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showListHeader, setShowListHeader] = useState(false);
   const [data, setData] = useState<AirbnbList[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const listRef = useRef<FlatList<AirbnbList>>(null);
@@ -41,6 +42,7 @@ const ListingsBottomSheet = ({ category }: Props) => {
       (item) => item.property_type === category
     );
   }, [category]);
+
   useEffect(() => {
     loadInitialItems();
   }, [category]);
@@ -91,7 +93,7 @@ const ListingsBottomSheet = ({ category }: Props) => {
   };
 
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["5%", "100%"], []);
+  const snapPoints = useMemo(() => ["10%", "100%"], []);
 
   const showMap = () => {
     bottomSheetRef.current?.collapse();
@@ -105,6 +107,7 @@ const ListingsBottomSheet = ({ category }: Props) => {
       snapPoints={snapPoints}
       enablePanDownToClose={false}
       handleIndicatorStyle={{ backgroundColor: Colors.grey }}
+      onChange={(index) => setShowListHeader(index === 0)}
     >
       {isLoading ? (
         <View
@@ -131,11 +134,30 @@ const ListingsBottomSheet = ({ category }: Props) => {
         <View style={{ flex: 1 }}>
           {/* <Listings items={items} category={category} /> */}
           <View style={defaultStyles.container}>
+            {showListHeader && (
+              <Animated.View
+                style={styles.listHeader}
+                entering={SlideInUp.delay(100)}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontFamily: "mon-sb",
+                    fontSize: 14,
+                    color: "#333",
+                  }}
+                >
+                  {items.length} Homes
+                </Text>
+              </Animated.View>
+            )}
+
             <FlatList
+              style={{ flex: 1, margin: 10, paddingHorizontal: 6 }}
               ref={listRef}
               data={data}
               renderItem={RenderRow}
-              keyExtractor={(item) => item.id.toString()}
+              keyExtractor={(item) => `${item.id + item.host_id}`}
               initialNumToRender={5}
               maxToRenderPerBatch={15}
               onEndReached={loadMoreData}
@@ -143,7 +165,6 @@ const ListingsBottomSheet = ({ category }: Props) => {
               ListFooterComponent={renderFooter}
               windowSize={5}
               onScroll={handleScroll}
-              style={{ flex: 1, margin: 10, paddingHorizontal: 6 }}
             />
           </View>
           <View style={styles.absoluteBtn}>
@@ -181,6 +202,13 @@ const styles = StyleSheet.create({
       width: 2,
       height: 2,
     },
+  },
+  listHeader: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    padding: 6,
   },
   absoluteBtn: {
     position: "absolute",
