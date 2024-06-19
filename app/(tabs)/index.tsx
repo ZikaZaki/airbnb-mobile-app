@@ -3,10 +3,11 @@ import { View } from "react-native";
 import { Stack } from "expo-router";
 import ExploreHeader from "@/components/ExploreHeader";
 import Listings from "@/components/Listings";
-import listingData from "@/assets/data/barcelona-listings.json";
-import listingsGeoData from "@/assets/data/barcelona.geo.json";
-import { AirbnbList } from "../interfaces/airbnb_list";
 import ListingsMap from "@/components/ListingsMap";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import ListingsBottomSheet from "@/components/ListingsBottomSheet";
+import { AirbnbList } from "../interfaces/airbnb_list";
+import listingData from "@/assets/data/barcelona-listings.json";
 
 const Page = () => {
   const [category, setCategory] = useState("Home/Apt");
@@ -22,13 +23,19 @@ const Page = () => {
 
   return (
     <View style={{ flex: 1, paddingTop: 100 }}>
-      <Stack.Screen
-        options={{
-          header: () => <ExploreHeader onCategoryChanged={onDataChanged} />,
-        }}
-      />
-      {/* <Listings items={items} category={category} /> */}
-      <ListingsMap listingData={listingData as AirbnbList[]} />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <Stack.Screen
+          options={{
+            header: () => <ExploreHeader onCategoryChanged={onDataChanged} />,
+          }}
+        />
+        {/* <Listings items={items} category={category} /> */}
+        <ListingsMap listingData={listingData as AirbnbList[]} />
+        <ListingsBottomSheet
+          listingData={listingData as AirbnbList[]}
+          category={category}
+        />
+      </GestureHandlerRootView>
     </View>
   );
 };
