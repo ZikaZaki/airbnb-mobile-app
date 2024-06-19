@@ -11,7 +11,6 @@ import {
   ListRenderItem,
   ActivityIndicator,
   TouchableOpacity,
-  FlatList,
   StyleSheet,
   NativeSyntheticEvent,
   NativeScrollEvent,
@@ -26,7 +25,6 @@ import { AirbnbList } from "@/app/interfaces/airbnb_list";
 import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 import listingData from "@/assets/data/barcelona-listings.json";
-import Animated, { SlideInUp } from "react-native-reanimated";
 
 interface Props {
   category: string;
@@ -49,6 +47,7 @@ const ListingsBottomSheet = ({ category }: Props) => {
 
   useEffect(() => {
     loadInitialItems();
+    scrollToTop(false);
   }, [category]);
 
   const loadInitialItems = useCallback(() => {
@@ -101,27 +100,24 @@ const ListingsBottomSheet = ({ category }: Props) => {
     );
   };
 
-  const scrollToTop = () => {
+  const scrollToTop = (animated = true) => {
     if (bottomSheetListRef.current) {
-      bottomSheetListRef.current?.scrollToOffset({ offset: 0, animated: true });
+      bottomSheetListRef.current?.scrollToOffset({
+        offset: 0,
+        animated: animated,
+      });
       setShowScrollToTopButton(false);
     }
   };
 
-  // const handleScroll = useCallback(
-  //   (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-  //     const currentOffset = event.nativeEvent.contentOffset.y;
+  const handleScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const currentOffset = event.nativeEvent.contentOffset.y;
 
-  //     setShowScrollToTopButton(currentOffset > 900);
-  //   },
-  //   []
-  // );
-
-  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-    const currentOffset = event.nativeEvent.contentOffset.y;
-
-    setShowScrollToTopButton(currentOffset > 900);
-  };
+      setShowScrollToTopButton(currentOffset > 900);
+    },
+    []
+  );
 
   const showMap = () => {
     bottomSheetRef.current?.collapse();
@@ -188,7 +184,10 @@ const ListingsBottomSheet = ({ category }: Props) => {
             </TouchableOpacity>
           </View>
           {showScrollToTopButton && (
-            <TouchableOpacity onPress={scrollToTop} style={styles.scrollTopBtn}>
+            <TouchableOpacity
+              onPress={() => scrollToTop()}
+              style={styles.scrollTopBtn}
+            >
               <Ionicons name="arrow-up" style={{ color: "white" }} size={24} />
             </TouchableOpacity>
           )}

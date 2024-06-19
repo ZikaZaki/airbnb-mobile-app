@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { memo, useCallback, useEffect, useRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import MapView from "react-native-map-clustering";
@@ -40,7 +40,7 @@ const debouncedRenderMarkers = (
   };
 };
 
-const ListingsMap = ({ listingData }: Props) => {
+const ListingsMap = memo(({ listingData }: Props) => {
   const listingDataRef = useRef<AirbnbList[]>(listingData);
   const [debouncedListingData, setDebouncedListingData] = React.useState<
     AirbnbList[]
@@ -113,7 +113,7 @@ const ListingsMap = ({ listingData }: Props) => {
       </MapView>
     </View>
   );
-};
+});
 
 export default ListingsMap;
 
