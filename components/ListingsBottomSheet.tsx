@@ -217,7 +217,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    padding: 6,
+    paddingBottom: 10,
+    paddingHorizontal: 12,
   },
   absoluteBtn: {
     position: "absolute",
