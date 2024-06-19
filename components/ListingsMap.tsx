@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import MapView from "react-native-map-clustering";
@@ -125,6 +125,8 @@ const styles = StyleSheet.create({
     gap: 3,
     backgroundColor: "#fff",
     borderRadius: 10,
+    borderColor: "#A3A3A3",
+    borderWidth: StyleSheet.hairlineWidth,
     padding: 6,
     elevation: 5,
     shadowColor: "#000",
