@@ -191,16 +191,18 @@ const Page = () => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            paddingVertical: 10,
+            paddingHorizontal: 8,
           }}
         >
-          <TouchableOpacity style={styles.footerText}>
+          <View style={styles.footerText}>
             <Text style={styles.footerPrice}>
               {item?.price ? item.price : "Price: N/A"}
             </Text>
             {item?.price && <Text style={{ fontSize: 16 }}>night</Text>}
-          </TouchableOpacity>
+          </View>
           <TouchableOpacity
-            style={[defaultStyles.btn, { paddingHorizontal: 24 }]}
+            style={[defaultStyles.btn, { paddingHorizontal: 24, height: 48 }]}
           >
             <Text style={defaultStyles.btnText}>Reserve</Text>
           </TouchableOpacity>
