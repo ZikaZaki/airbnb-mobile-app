@@ -11,13 +11,13 @@ import listingData from "@/assets/data/barcelona-listings.json";
 
 const Page = () => {
   const [category, setCategory] = useState("Home/Apt");
-  const items = useMemo(() => {
-    return (listingData as AirbnbList[]).filter(
-      (item) => item.property_type === category
-    );
-  }, [category]);
+  // const items = useMemo(() => {
+  //   return (listingData as AirbnbList[]).filter(
+  //     (item) => item.property_type === category
+  //   );
+  // }, [category]);
 
-  const onDataChanged = (category: string) => {
+  const onCategoryChanged = (category: string) => {
     setCategory(category);
   };
 
@@ -26,15 +26,14 @@ const Page = () => {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <Stack.Screen
           options={{
-            header: () => <ExploreHeader onCategoryChanged={onDataChanged} />,
+            header: () => (
+              <ExploreHeader onCategoryChanged={onCategoryChanged} />
+            ),
           }}
         />
         {/* <Listings items={items} category={category} /> */}
         <ListingsMap listingData={listingData as AirbnbList[]} />
-        <ListingsBottomSheet
-          listingData={listingData as AirbnbList[]}
-          category={category}
-        />
+        <ListingsBottomSheet category={category} />
       </GestureHandlerRootView>
     </View>
   );

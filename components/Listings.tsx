@@ -1,3 +1,4 @@
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   View,
   ListRenderItem,
@@ -8,7 +9,6 @@ import {
   NativeSyntheticEvent,
   NativeScrollEvent,
 } from "react-native";
-import React, { useCallback, useEffect, useRef, useState } from "react";
 import { defaultStyles } from "@/constants/Styles";
 import { AirbnbList } from "@/app/interfaces/airbnb_list";
 import { Ionicons } from "@expo/vector-icons";
@@ -78,24 +78,38 @@ const Listings: React.FC<ListingsProps> = ({ items, category }) => {
 
   return (
     <View style={defaultStyles.container}>
-      <FlatList
-        ref={listRef}
-        data={data}
-        renderItem={RenderRow}
-        keyExtractor={(item) => item.id.toString()}
-        initialNumToRender={5}
-        maxToRenderPerBatch={15}
-        onEndReached={loadMoreData}
-        onEndReachedThreshold={0.5}
-        ListFooterComponent={renderFooter}
-        windowSize={5}
-        onScroll={handleScroll}
-        style={{ flex: 1, margin: 10, paddingHorizontal: 6 }}
-      />
-      {showButtonToTop && (
-        <TouchableOpacity onPress={scrollToTop} style={styles.scrollTopBtn}>
-          <Ionicons name="arrow-up" style={{ color: "white" }} size={24} />
-        </TouchableOpacity>
+      {isLoading ? (
+        <ActivityIndicator
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+            width: "100%",
+          }}
+        />
+      ) : (
+        <>
+          <FlatList
+            ref={listRef}
+            data={data}
+            renderItem={RenderRow}
+            keyExtractor={(item) => item.id.toString()}
+            initialNumToRender={5}
+            maxToRenderPerBatch={15}
+            onEndReached={loadMoreData}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={renderFooter}
+            windowSize={5}
+            onScroll={handleScroll}
+            style={{ flex: 1, margin: 10, paddingHorizontal: 6 }}
+          />
+          {showButtonToTop && (
+            <TouchableOpacity onPress={scrollToTop} style={styles.scrollTopBtn}>
+              <Ionicons name="arrow-up" style={{ color: "white" }} size={24} />
+            </TouchableOpacity>
+          )}
+        </>
       )}
     </View>
   );
