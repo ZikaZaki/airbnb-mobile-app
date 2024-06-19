@@ -17,7 +17,10 @@ import {
   NativeScrollEvent,
 } from "react-native";
 import { defaultStyles } from "@/constants/Styles";
-import BottomSheet from "@gorhom/bottom-sheet";
+import BottomSheet, {
+  BottomSheetFlatList,
+  BottomSheetFlatListMethods,
+} from "@gorhom/bottom-sheet";
 import ListingItem from "./ListingItem";
 import { AirbnbList } from "@/app/interfaces/airbnb_list";
 import { Ionicons } from "@expo/vector-icons";
@@ -31,11 +34,12 @@ interface Props {
 
 const ListingsBottomSheet = ({ category }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [showListHeader, setShowListHeader] = useState(false);
   const [data, setData] = useState<AirbnbList[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const listRef = useRef<FlatList<AirbnbList>>(null);
-  const [showButtonToTop, setShowButtonToTop] = useState(false);
+  const snapPoints = useMemo(() => ["10%", "100%"], []);
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const bottomSheetListRef = useRef<BottomSheetFlatListMethods>(null);
+  const [showScrollToTopButton, setShowScrollToTopButton] = useState(false);
 
   const items = useMemo(() => {
     return (listingData as AirbnbList[]).filter(
@@ -69,7 +73,7 @@ const ListingsBottomSheet = ({ category }: Props) => {
     return <ListingItem item={item} />;
   };
 
-  const renderFooter = () => {
+  const ListFooterComponent = () => {
     if (isLoading) {
       return (
         <View style={{ padding: 10 }}>
@@ -80,20 +84,44 @@ const ListingsBottomSheet = ({ category }: Props) => {
     return null;
   };
 
+  const ListHeaderComponent = () => {
+    return (
+      <View style={styles.listHeader}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontFamily: "mon-sb",
+            fontSize: 14,
+            color: "#333",
+          }}
+        >
+          {items.length} Homes
+        </Text>
+      </View>
+    );
+  };
+
   const scrollToTop = () => {
-    if (listRef.current) {
-      listRef.current.scrollToOffset({ offset: 0, animated: true });
+    if (bottomSheetListRef.current) {
+      bottomSheetListRef.current?.scrollToOffset({ offset: 0, animated: true });
+      setShowScrollToTopButton(false);
     }
   };
+
+  // const handleScroll = useCallback(
+  //   (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+  //     const currentOffset = event.nativeEvent.contentOffset.y;
+
+  //     setShowScrollToTopButton(currentOffset > 900);
+  //   },
+  //   []
+  // );
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const currentOffset = event.nativeEvent.contentOffset.y;
 
-    setShowButtonToTop(currentOffset > 900);
+    setShowScrollToTopButton(currentOffset > 900);
   };
-
-  const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["10%", "100%"], []);
 
   const showMap = () => {
     bottomSheetRef.current?.collapse();
@@ -107,7 +135,6 @@ const ListingsBottomSheet = ({ category }: Props) => {
       snapPoints={snapPoints}
       enablePanDownToClose={false}
       handleIndicatorStyle={{ backgroundColor: Colors.grey }}
-      onChange={(index) => setShowListHeader(index === 0)}
     >
       {isLoading ? (
         <View
@@ -134,37 +161,20 @@ const ListingsBottomSheet = ({ category }: Props) => {
         <View style={{ flex: 1 }}>
           {/* <Listings items={items} category={category} /> */}
           <View style={defaultStyles.container}>
-            {showListHeader && (
-              <Animated.View
-                style={styles.listHeader}
-                entering={SlideInUp.delay(100)}
-              >
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontFamily: "mon-sb",
-                    fontSize: 14,
-                    color: "#333",
-                  }}
-                >
-                  {items.length} Homes
-                </Text>
-              </Animated.View>
-            )}
-
-            <FlatList
+            <BottomSheetFlatList
               style={{ flex: 1, margin: 10, paddingHorizontal: 6 }}
-              ref={listRef}
+              ref={bottomSheetListRef}
               data={data}
               renderItem={RenderRow}
-              keyExtractor={(item) => `${item.id + item.host_id}`}
+              keyExtractor={(item: AirbnbList) => `${item.id + item.host_id}`}
+              windowSize={5}
               initialNumToRender={5}
               maxToRenderPerBatch={15}
               onEndReached={loadMoreData}
               onEndReachedThreshold={0.5}
-              ListFooterComponent={renderFooter}
-              windowSize={5}
-              onScroll={handleScroll}
+              ListFooterComponent={ListFooterComponent}
+              ListHeaderComponent={ListHeaderComponent}
+              onScrollEndDrag={handleScroll}
             />
           </View>
           <View style={styles.absoluteBtn}>
@@ -177,7 +187,7 @@ const ListingsBottomSheet = ({ category }: Props) => {
               <Ionicons name="map" size={24} color="#fff" />
             </TouchableOpacity>
           </View>
-          {showButtonToTop && (
+          {showScrollToTopButton && (
             <TouchableOpacity onPress={scrollToTop} style={styles.scrollTopBtn}>
               <Ionicons name="arrow-up" style={{ color: "white" }} size={24} />
             </TouchableOpacity>

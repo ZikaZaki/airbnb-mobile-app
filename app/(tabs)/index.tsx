@@ -22,7 +22,7 @@ const Page = () => {
   };
 
   return (
-    <View style={{ flex: 1, paddingTop: 100 }}>
+    <View style={{ flex: 1, paddingTop: 40 }}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <Stack.Screen
           options={{
