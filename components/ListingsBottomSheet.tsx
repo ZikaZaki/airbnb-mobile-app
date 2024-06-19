@@ -34,7 +34,7 @@ const ListingsBottomSheet = ({ category }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<AirbnbList[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const snapPoints = useMemo(() => ["10%", "100%"], []);
+  const snapPoints = useMemo(() => ["8%", "100%"], []);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const bottomSheetListRef = useRef<BottomSheetFlatListMethods>(null);
   const [showScrollToTopButton, setShowScrollToTopButton] = useState(false);
@@ -48,6 +48,7 @@ const ListingsBottomSheet = ({ category }: Props) => {
   useEffect(() => {
     loadInitialItems();
     scrollToTop(false);
+    bottomSheetRef.current?.expand();
   }, [category]);
 
   const loadInitialItems = useCallback(() => {
@@ -72,34 +73,6 @@ const ListingsBottomSheet = ({ category }: Props) => {
     return <ListingItem item={item} />;
   };
 
-  const ListFooterComponent = () => {
-    if (isLoading) {
-      return (
-        <View style={{ padding: 10 }}>
-          <ActivityIndicator />
-        </View>
-      );
-    }
-    return null;
-  };
-
-  const ListHeaderComponent = () => {
-    return (
-      <View style={styles.listHeader}>
-        <Text
-          style={{
-            textAlign: "center",
-            fontFamily: "mon-sb",
-            fontSize: 14,
-            color: "#333",
-          }}
-        >
-          {items.length} Homes
-        </Text>
-      </View>
-    );
-  };
-
   const scrollToTop = (animated = true) => {
     if (bottomSheetListRef.current) {
       bottomSheetListRef.current?.scrollToOffset({
@@ -113,7 +86,6 @@ const ListingsBottomSheet = ({ category }: Props) => {
   const handleScroll = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
       const currentOffset = event.nativeEvent.contentOffset.y;
-
       setShowScrollToTopButton(currentOffset > 900);
     },
     []
@@ -132,6 +104,18 @@ const ListingsBottomSheet = ({ category }: Props) => {
       enablePanDownToClose={false}
       handleIndicatorStyle={{ backgroundColor: Colors.grey }}
     >
+      <View style={styles.listHeader}>
+        <Text
+          style={{
+            textAlign: "center",
+            fontFamily: "mon-sb",
+            fontSize: 14,
+            color: "#333",
+          }}
+        >
+          {items?.length} Homes
+        </Text>
+      </View>
       {isLoading ? (
         <View
           style={{
@@ -155,7 +139,6 @@ const ListingsBottomSheet = ({ category }: Props) => {
         </View>
       ) : (
         <View style={{ flex: 1 }}>
-          {/* <Listings items={items} category={category} /> */}
           <View style={defaultStyles.container}>
             <BottomSheetFlatList
               style={{ flex: 1, margin: 10, paddingHorizontal: 6 }}
@@ -163,13 +146,11 @@ const ListingsBottomSheet = ({ category }: Props) => {
               data={data}
               renderItem={RenderRow}
               keyExtractor={(item: AirbnbList) => `${item.id + item.host_id}`}
-              windowSize={5}
-              initialNumToRender={5}
-              maxToRenderPerBatch={15}
+              windowSize={6}
+              initialNumToRender={15}
+              maxToRenderPerBatch={20}
               onEndReached={loadMoreData}
               onEndReachedThreshold={0.5}
-              ListFooterComponent={ListFooterComponent}
-              ListHeaderComponent={ListHeaderComponent}
               onScrollEndDrag={handleScroll}
             />
           </View>
