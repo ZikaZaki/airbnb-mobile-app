@@ -1,16 +1,17 @@
-import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-import { Stack, useRouter } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
+import { SplashScreen, Stack, useRouter } from "expo-router";
 import { useEffect } from "react";
-import { TouchableOpacity } from "react-native";
-import * as SecureStore from "expo-secure-store";
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
-import ModalHeaderText from "@/components/ModalHeaderText";
+import * as SecureStore from "expo-secure-store";
+import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
+import ModalHeaderText from "@/components/ModalHeaderText";
+import { TouchableOpacity } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
+// Caching the Clerk JWT
 const tokenCache = {
   getToken: async (key: string) => {
     try {
@@ -29,6 +30,9 @@ const tokenCache = {
   },
 };
 
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+SplashScreen.preventAutoHideAsync();
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -38,9 +42,6 @@ export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "(tabs)",
 };
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -66,10 +67,12 @@ export default function RootLayout() {
 
   return (
     <ClerkProvider
-      publishableKey={CLERK_PUBLISHABLE_KEY ?? ""}
+      publishableKey={CLERK_PUBLISHABLE_KEY!}
       tokenCache={tokenCache}
     >
-      <RootLayoutNav />
+      <GestureHandlerRootView>
+        <RootLayoutNav />
+      </GestureHandlerRootView>
     </ClerkProvider>
   );
 }
@@ -86,15 +89,14 @@ function RootLayoutNav() {
 
   return (
     <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
         name="(modals)/login"
         options={{
+          presentation: "modal",
           title: "Log in or Sign up",
           headerTitleStyle: {
             fontFamily: "mon-sb",
           },
-          presentation: "modal",
           headerLeft: () => (
             <TouchableOpacity onPress={() => router.back()}>
               <Ionicons name="close-outline" size={28} />
@@ -102,6 +104,7 @@ function RootLayoutNav() {
           ),
         }}
       />
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen
         name="listing/[id]"
         options={{ headerTitle: "", headerTransparent: true }}
@@ -110,9 +113,9 @@ function RootLayoutNav() {
         name="(modals)/booking"
         options={{
           presentation: "transparentModal",
-          headerTransparent: true,
           animation: "fade",
-          headerTitle: () => <ModalHeaderText />,
+          headerTransparent: true,
+          headerTitle: (props) => <ModalHeaderText />,
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => router.back()}
