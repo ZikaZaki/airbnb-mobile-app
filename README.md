@@ -1,74 +1,76 @@
-# Airbnb Clone
+# Airbnb-Mobile-App (Clone)
 
-This is a React Native application built using Expo, designed to replicate the core functionality of the Airbnb platform.
+This is an Expo React Native application that serves as a clone of the popular Airbnb platform. Built with Expo, React Native, and Clerk for authentication, this app provides an elegant and user-friendly interface, leveraging libraries like Reanimated, React Native Maps, and React Native Map Clustering to deliver a seamless experience for users.
 
 ## Features
 
-- **User Authentication**: Users can sign up, log in, and log out of the application.
-- **Property Listing**: Users can view a list of available properties, including information about the property, such as location, price, and images.
-- **Property Details**: Users can view detailed information about a specific property, including a description, amenities, and reviews.
-- **Booking**: Users can book a property for a specific date range, and the booking information will be stored in their account.
-- **User Profiles**: Users can view and edit their profile information, including their name, email, and profile picture.
-- **Search and Filters**: Users can search for properties based on various criteria, such as location, price range, and property type.
-- **Reviews and Ratings**: Users can leave reviews and ratings for properties they have stayed at.
+- **Cross-Platform**: The app is built using React Native and Expo, making it compatible with both iOS and Android devices.
+- **Elegant & User-Friendly UI Design**: The app boasts a visually appealing and intuitive user interface, making it easy for users to navigate and interact with the app.
+- **Clerk User Authentication**: The app uses Clerk for user authentication, providing a secure and seamless sign-in and sign-up experience. Users can sign in with their phone number, Apple ID, Google Accounts, or Facebook Accounts.
+- **Reanimated for Smooth Animations**: The app utilizes the Reanimated library to provide smooth and responsive animations, enhancing the overall user experience.
+- **React Native Maps & Map Clustering**: Users can easily locate available Airbnb properties on an interactive map using the React Native Maps library. The app also uses map clustering to group nearby properties for a more organized view.
+- **Bottom Sheet Navigation**: The app features a bottom sheet navigation design that allows users to view property details, reviews, and book a property without leaving the map view.
+
+## Screenshots
+
 
 ## Technologies Used
 
 - **React Native**: The primary framework used for building the mobile application.
 - **Expo**: A toolchain built around React Native to facilitate development, building, and deployment.
-- **Redux**: A predictable state container used for managing the application's state.
-- **React Navigation**: A set of libraries used for handling navigation within the React Native application.
-- **Firebase**: A comprehensive app development platform used for authentication, database, and hosting.
-- **Expo Google Fonts**: A library that provides access to a large collection of open-source font families.
+- **Expo Router**: A library that provides routing capabilities for React Native applications.
+- **Clerk**: A user authentication platform that provides secure and customizable authentication solutions.
+- **Reanimated**: A React Native library used for creating smooth and performant animations.
+- **React Native Maps**: A library that provides components for integrating maps into React Native applications.
+- **React Native Map Clustering**: A library that enables map clustering to group nearby markers on a map.
+- **Bottom Sheet**: A library that provides a bottom sheet component for React Native applications.
 - **Expo Vector Icons**: A library that provides a set of customizable icons for use in React Native applications.
 
-## Getting Started
+## Installation & Setup
 
-To run the Airbnb clone application, you'll need to have Expo CLI installed on your machine. You can install it using npm or yarn:
-
-```
-npm install -g expo-cli
-```
-
-or
-
-```
-yarn global add expo-cli
-```
-
-Once you have Expo CLI installed, follow these steps:
+To run the Airbnb Clone Expo React Native app, follow these steps:
 
 1. Clone the repository:
+
+   ```git
+   git clone git@github.com:ZikaZaki/airbnb-mobile-app.git
    ```
-   git clone https://github.com/your-username/airbnb-clone.git
-   ```
+
 2. Navigate to the project directory:
+
+   ```cmd
+   cd airbnb-mobile-app
    ```
-   cd airbnb-clone
-   ```
+
 3. Install the dependencies:
-   ```
+
+   ```npm
    npm install
    ```
+
    or
-   ```
+
+   ```yarn
    yarn install
    ```
-4. Start the development server:
-   ```
+
+4. Start the Expo development server:
+
+   ```npx
    npx expo start
    ```
-5. Use the Expo app on your mobile device or an emulator to run the application.
+
+5. Follow the instructions provided in the Expo developer tools to run the app on your desired platform (e.g., iOS simulator, Android emulator, or physical device).
 
 ## Contributing
 
-If you'd like to contribute to the Airbnb clone project, please follow these steps:
+Contributions are welcome! Feel free to open an issue or submit a pull request if you have any improvements to the project.
 
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them.
-4. Push your changes to your forked repository.
-5. Submit a pull request to the original repository.
+## Acknowledgements
+
+- [React Native](https://reactnative.dev/)
+- [Expo](https://docs.expo.dev/)
+- [Clerk](https://clerk.dev/)
 
 ## License
 
