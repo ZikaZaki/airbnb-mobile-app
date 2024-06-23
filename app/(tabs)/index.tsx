@@ -14,8 +14,7 @@ const Page = () => {
   };
 
   return (
-    <View style={{ flex: 1, paddingTop: 40 }}>
-      {/* Define pour custom header */}
+    <View style={{ flex: 1, marginTop: 40 }}>
       <Stack.Screen
         options={{
           header: () => <ExploreHeader onCategoryChanged={onCategoryChanged} />,

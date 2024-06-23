@@ -66,14 +66,14 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView>
-      <ClerkProvider
-        publishableKey={CLERK_PUBLISHABLE_KEY!}
-        tokenCache={tokenCache}
-      >
+    <ClerkProvider
+      publishableKey={CLERK_PUBLISHABLE_KEY!}
+      tokenCache={tokenCache}
+    >
+      <GestureHandlerRootView>
         <RootLayoutNav />
-      </ClerkProvider>
-    </GestureHandlerRootView>
+      </GestureHandlerRootView>
+    </ClerkProvider>
   );
 }
 

@@ -9,7 +9,6 @@ import {
   View,
   Text,
   ListRenderItem,
-  ActivityIndicator,
   TouchableOpacity,
   StyleSheet,
   NativeSyntheticEvent,
@@ -116,63 +115,35 @@ const ListingsBottomSheet = ({ category }: Props) => {
           {items?.length} Homes
         </Text>
       </View>
-      {isLoading ? (
-        <View
-          style={{
-            ...StyleSheet.absoluteFillObject,
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          <ActivityIndicator size="large" color="#FF5A5F" />
-          <Text
-            style={{
-              fontFamily: "mon-sb",
-              fontSize: 14,
-              color: "grey",
-            }}
-          >
-            Loading...
+      <View style={[defaultStyles.container, { paddingHorizontal: 16 }]}>
+        <BottomSheetFlatList
+          ref={bottomSheetListRef}
+          data={data}
+          renderItem={RenderRow}
+          keyExtractor={(item: AirbnbList) => `${item.id + item.host_id}`}
+          windowSize={6}
+          initialNumToRender={15}
+          maxToRenderPerBatch={20}
+          onEndReached={loadMoreData}
+          onEndReachedThreshold={0.5}
+          onScrollEndDrag={handleScroll}
+        />
+      </View>
+      <View style={styles.absoluteBtn}>
+        <TouchableOpacity style={styles.btn} onPress={showMap}>
+          <Text style={{ fontFamily: "mon-sb", fontSize: 14, color: "#fff" }}>
+            Map
           </Text>
-        </View>
-      ) : (
-        <View style={{ flex: 1 }}>
-          <View style={defaultStyles.container}>
-            <BottomSheetFlatList
-              style={{ flex: 1, margin: 10, paddingHorizontal: 6 }}
-              ref={bottomSheetListRef}
-              data={data}
-              renderItem={RenderRow}
-              keyExtractor={(item: AirbnbList) => `${item.id + item.host_id}`}
-              windowSize={6}
-              initialNumToRender={15}
-              maxToRenderPerBatch={20}
-              onEndReached={loadMoreData}
-              onEndReachedThreshold={0.5}
-              onScrollEndDrag={handleScroll}
-            />
-          </View>
-          <View style={styles.absoluteBtn}>
-            <TouchableOpacity style={styles.btn} onPress={showMap}>
-              <Text
-                style={{ fontFamily: "mon-sb", fontSize: 14, color: "#fff" }}
-              >
-                Map
-              </Text>
-              <Ionicons name="map" size={24} color="#fff" />
-            </TouchableOpacity>
-          </View>
-          {showScrollToTopButton && (
-            <TouchableOpacity
-              onPress={() => scrollToTop()}
-              style={styles.scrollTopBtn}
-            >
-              <Ionicons name="arrow-up" style={{ color: "white" }} size={24} />
-            </TouchableOpacity>
-          )}
-        </View>
+          <Ionicons name="map" size={24} color="#fff" />
+        </TouchableOpacity>
+      </View>
+      {showScrollToTopButton && (
+        <TouchableOpacity
+          onPress={() => scrollToTop()}
+          style={styles.scrollTopBtn}
+        >
+          <Ionicons name="arrow-up" style={{ color: "white" }} size={24} />
+        </TouchableOpacity>
       )}
     </BottomSheet>
   );
@@ -183,11 +154,11 @@ export default ListingsBottomSheet;
 const styles = StyleSheet.create({
   sheetContainer: {
     backgroundColor: "#fff",
-    borderRadius: 4,
+    borderRadius: 24,
     elevation: 4,
     shadowColor: "#000",
     shadowOpacity: 0.3,
-    shadowRadius: 6,
+    shadowRadius: 12,
     shadowOffset: {
       width: 2,
       height: 2,
@@ -198,7 +169,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    paddingBottom: 10,
+    paddingBottom: 18,
     paddingHorizontal: 12,
   },
   absoluteBtn: {
@@ -220,8 +191,8 @@ const styles = StyleSheet.create({
   },
   scrollTopBtn: {
     position: "absolute",
-    bottom: 18,
-    right: 18,
+    bottom: 32,
+    right: 23,
     backgroundColor: Colors.primary,
     paddingVertical: 12,
     paddingHorizontal: 12,
