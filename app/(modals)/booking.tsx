@@ -241,7 +241,12 @@ const Page = () => {
                       <Ionicons
                         name="remove-circle-outline"
                         size={26}
-                        color={Colors.grey}
+                        color={
+                          (item.name === "Adults" && item.count === 1) ||
+                          item.count === 0
+                            ? "lightgrey"
+                            : Colors.grey
+                        }
                       />
                     </TouchableOpacity>
                     <Text

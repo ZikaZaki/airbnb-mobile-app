@@ -13,7 +13,26 @@ This is an Expo React Native application that serves as a clone of the popular A
 
 ## Screenshots
 
-
+<div style="display: flex; flex-direction: column; gap: 5px;">
+   <div style="display: flex; gap: 5px;">
+      <img src="./screenshots/01.png" alt="Screenshot 1" style="width: 25%;">
+      <img src="./screenshots/02.png" alt="Screenshot 2" style="width: 25%;">
+      <img src="./screenshots/03.png" alt="Screenshot 3" style="width: 25%;">
+      <img src="./screenshots/04.png" alt="Screenshot 4" style="width: 25%;">
+   </div>
+   <div style="display: flex; gap: 5px;">
+      <img src="./screenshots/05.png" alt="Screenshot 5" style="width: 25%;">
+      <img src="./screenshots/06.png" alt="Screenshot 6" style="width: 25%;">
+      <img src="./screenshots/07.png" alt="Screenshot 7" style="width: 25%;">
+      <img src="./screenshots/08.png" alt="Screenshot 8" style="width: 25%;">
+   </div>
+   <div style="display: flex; gap: 5px;">
+      <img src="./screenshots/09.png" alt="Screenshot 9" style="width: 25%;">
+      <img src="./screenshots/10.png" alt="Screenshot 10" style="width: 25%;">
+      <img src="./screenshots/11.png" alt="Screenshot 11" style="width: 25%;">
+      <img src="./screenshots/12.png" alt="Screenshot 12" style="width: 25%;">
+   </div>
+</div>
 ## Technologies Used
 
 - **React Native**: The primary framework used for building the mobile application.

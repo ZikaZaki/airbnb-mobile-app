@@ -154,7 +154,7 @@ export default ListingsBottomSheet;
 const styles = StyleSheet.create({
   sheetContainer: {
     backgroundColor: "#fff",
-    borderRadius: 24,
+    borderRadius: 18,
     elevation: 4,
     shadowColor: "#000",
     shadowOpacity: 0.3,
