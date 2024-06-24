@@ -15,7 +15,7 @@ This is an Expo React Native application that serves as a clone of the popular A
 
 <div style="width: 100%; height: 300px; overflow: auto; background-color: 'grey';">
   <table style="width: 100%; border-collapse: collapse; background-color: 'grey';">
-    <tbody>
+    <thead>
       <tr>
         <th style="border: 1px solid black;"><img src="./screenshots/01.png" alt="Screenshot 1"></th>
         <th style="border: 1px solid black;"><img src="./screenshots/02.png" alt="Screenshot 2"></th>
@@ -35,7 +35,7 @@ This is an Expo React Native application that serves as a clone of the popular A
        <th style="border: 1px solid black;"><img src="./screenshots/12.png" alt="Screenshot 12"></th>
       </tr>
       <!-- Add more rows as needed -->
-    </tbody>
+    </thead>
   </table>
 </div>
 
