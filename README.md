@@ -13,7 +13,7 @@ This is an Expo React Native application that serves as a clone of the popular A
 
 ## Screenshots
 
-<div style="display: grid; grid-template-columns: repeat(4, 1fr); grid-gap: 2px;">
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); grid-gap: 2px;">
    <img src="./screenshots/01.png" alt="Screenshot 1">
    <img src="./screenshots/02.png" alt="Screenshot 2">
    <img src="./screenshots/03.png" alt="Screenshot 3">
