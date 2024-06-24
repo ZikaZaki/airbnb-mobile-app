@@ -13,8 +13,8 @@ This is an Expo React Native application that serves as a clone of the popular A
 
 ## Screenshots
 
-<div style="width: 100%; height: 300px; overflow: auto; background-color: skyblue;">
-  <table style="width: 100%; border-collapse: collapse; background-color: white;">
+<div style="width: 100%; height: 300px; overflow: auto; background-color: 'grey';">
+  <table style="width: 100%; border-collapse: collapse; background-color: 'grey';">
     <tbody>
       <tr>
         <td style="border: 1px solid black;"><img src="./screenshots/01.png" alt="Screenshot 1"></td>
