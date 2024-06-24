@@ -15,27 +15,27 @@ This is an Expo React Native application that serves as a clone of the popular A
 
 <div style="width: 100%; height: 300px; overflow: auto; background-color: 'grey';">
   <table style="width: 100%; border-collapse: collapse; background-color: 'grey';">
-    <thead>
+    <tbody>
       <tr>
-        <th style="border: 1px solid black;"><img src="./screenshots/01.png" alt="Screenshot 1"></th>
-        <th style="border: 1px solid black;"><img src="./screenshots/02.png" alt="Screenshot 2"></th>
-        <th style="border: 1px solid black;"><img src="./screenshots/03.png" alt="Screenshot 3"></th>
-        <th style="border: 1px solid black;"><img src="./screenshots/04.png" alt="Screenshot 4"></th>
+        <td style="border: 1px solid black;"><img src="./screenshots/01.png" alt="Screenshot 1"></td>
+        <td style="border: 1px solid black;"><img src="./screenshots/02.png" alt="Screenshot 2"></td>
+        <td style="border: 1px solid black;"><img src="./screenshots/03.png" alt="Screenshot 3"></td>
+        <td style="border: 1px solid black;"><img src="./screenshots/04.png" alt="Screenshot 4"></td>
       </tr>
       <tr>
-       <th style="border: 1px solid black;"><img src="./screenshots/05.png" alt="Screenshot 5"></th>
-       <th style="border: 1px solid black;"><img src="./screenshots/06.png" alt="Screenshot 6"></th>
-       <th style="border: 1px solid black;"><img src="./screenshots/07.png" alt="Screenshot 7"></th>
-       <th style="border: 1px solid black;"><img src="./screenshots/08.png" alt="Screenshot 8"></th>
+       <td style="border: 1px solid black;"><img src="./screenshots/05.png" alt="Screenshot 5"></td>
+       <td style="border: 1px solid black;"><img src="./screenshots/06.png" alt="Screenshot 6"></td>
+       <td style="border: 1px solid black;"><img src="./screenshots/07.png" alt="Screenshot 7"></td>
+       <td style="border: 1px solid black;"><img src="./screenshots/08.png" alt="Screenshot 8"></td>
       </tr>
       <tr>
-       <th style="border: 1px solid black;"><img src="./screenshots/09.png" alt="Screenshot 9"></th>
-       <th style="border: 1px solid black;"><img src="./screenshots/10.png" alt="Screenshot 10"></th>
-       <th style="border: 1px solid black;"><img src="./screenshots/11.png" alt="Screenshot 11"></th>
-       <th style="border: 1px solid black;"><img src="./screenshots/12.png" alt="Screenshot 12"></th>
+       <td style="border: 1px solid black;"><img src="./screenshots/09.png" alt="Screenshot 9"></td>
+       <td style="border: 1px solid black;"><img src="./screenshots/10.png" alt="Screenshot 10"></td>
+       <td style="border: 1px solid black;"><img src="./screenshots/11.png" alt="Screenshot 11"></td>
+       <td style="border: 1px solid black;"><img src="./screenshots/12.png" alt="Screenshot 12"></td>
       </tr>
       <!-- Add more rows as needed -->
-    </thead>
+    </tbody>
   </table>
 </div>
 
