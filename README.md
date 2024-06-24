@@ -13,26 +13,51 @@ This is an Expo React Native application that serves as a clone of the popular A
 
 ## Screenshots
 
-<div style="display: flex; flex-direction: column; gap: 2px;">
-   <div style="display: flex; gap: 2px;">
-      <img src="./screenshots/01.png" alt="Screenshot 1" style="width: 25%;">
+ # My Table with Fixed Height and Scroll
+
+<div style="width: 100%; height: 300px; overflow: auto; background-color: skyblue;">
+  <table style="width: 100%; border-collapse: collapse; background-color: white;">
+    <tbody>
+      <tr>
+        <td style="border: 1px solid black;"><img src="./screenshots/01.png" alt="Screenshot 1" style="width: 25%;"></td>
+        <td style="border: 1px solid black;">Header 2</td>
+        <td style="border: 1px solid black;">Header 3</td>
+        <td style="border: 1px solid black;">Header 4</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;">Cell 1</td>
+        <td style="border: 1px solid black;">Cell 2</td>
+        <td style="border: 1px solid black;">Cell 3</td>
+        <td style="border: 1px solid black;">Cell 4</td>
+      </tr>
+      <tr>
+        <td style="border: 1px solid black;">Cell 5</td>
+        <td style="border: 1px solid black;">Cell 6</td>
+        <td style="border: 1px solid black;">Cell 7</td>
+        <td style="border: 1px solid black;">Cell 8</td>
+      </tr>
+      <!-- Add more rows as needed -->
+    </tbody>
+  </table>
+</div>
+
+
+ <div style="background-color: #f0f0f0; padding: 20px; width: 100%; max-height: 100px;   border: 5px solid #ccc;">
       <img src="./screenshots/02.png" alt="Screenshot 2" style="width: 25%;">
       <img src="./screenshots/03.png" alt="Screenshot 3" style="width: 25%;">
-      <img src="./screenshots/04.png" alt="Screenshot 4" style="width: 25%;">
-   </div>
-   <div style="display: flex; gap: 2px;">
-      <img src="./screenshots/05.png" alt="Screenshot 5" style="width: 25%;">
-      <img src="./screenshots/06.png" alt="Screenshot 6" style="width: 25%;">
-      <img src="./screenshots/07.png" alt="Screenshot 7" style="width: 25%;">
-      <img src="./screenshots/08.png" alt="Screenshot 8" style="width: 25%;">
-   </div>
-   <div style="display: flex; gap: 2px;">
-      <img src="./screenshots/09.png" alt="Screenshot 9" style="width: 25%;">
-      <img src="./screenshots/10.png" alt="Screenshot 10" style="width: 25%;">
-      <img src="./screenshots/11.png" alt="Screenshot 11" style="width: 25%;">
-      <img src="./screenshots/12.png" alt="Screenshot 12" style="width: 25%;">
-   </div>
+      <img src="./screenshots/04.png" alt="Screenshot 4" style="width: 24%;">
+      <img src="./screenshots/05.png" alt="Screenshot 5" style="width: 24%;">
+      <img src="./screenshots/06.png" alt="Screenshot 6" style="width: 24%;">
+      <img src="./screenshots/07.png" alt="Screenshot 7" style="width: 24%;">
+      <img src="./screenshots/08.png" alt="Screenshot 8" style="width: 24%;">
+       <img src="./screenshots/09.png" alt="Screenshot 9" style="width: 24%;">
+      <img src="./screenshots/10.png" alt="Screenshot 10" style="width: 24%;">
+      <img src="./screenshots/11.png" alt="Screenshot 11" style="width: 24%;">
+      <img src="./screenshots/12.png" alt="Screenshot 12" style="width: 24%;">
 </div>
+
+
+
 
 ## Technologies Used
 
